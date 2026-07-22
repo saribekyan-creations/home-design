@@ -1842,12 +1842,16 @@
         }
 
         generateBtn.addEventListener('click', () => {
-            roomVisual.style.animation = 'none';
-            setTimeout(() => {
-                roomVisual.style.animation = 'slideUp 0.4s ease';
-            }, 10);
-            updateRoomInfo();
-        });
+    roomVisual.style.opacity = '0';
+    roomVisual.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+        roomVisual.style.transition = 'all 0.4s ease';
+        roomVisual.style.opacity = '1';
+        roomVisual.style.transform = 'translateY(0)';
+        updateRoomInfo();
+    }, 100);
+});
     </script>
 
 </body>
