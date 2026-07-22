@@ -312,6 +312,68 @@
             transform: translateY(-2px);
         }
 
+        <!-- QUIZ SECTION -->
+<section class="quiz-section">
+    <div class="section-title">
+        <h2>Find Your <span>Design Style</span></h2>
+        <p>Answer 5 questions to discover your perfect home design</p>
+    </div>
+
+    <div class="quiz-container">
+        <!-- Progress Bar -->
+        <div class="quiz-progress">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 20%"></div>
+            </div>
+            <div class="progress-text" id="progressText">Question 1 of 5</div>
+        </div>
+
+        <!-- Quiz Content -->
+        <div id="quizContent">
+            <div class="quiz-question">
+                <h3 id="questionTitle">What's your preferred <span>design style</span>?</h3>
+                <p id="questionSubtitle">Choose the style that resonates with you</p>
+            </div>
+
+            <div class="quiz-options" id="quizOptions">
+                <!-- Options will be inserted by JavaScript -->
+            </div>
+
+            <div class="quiz-buttons">
+                <button class="btn-quiz prev" id="prevBtn" disabled>Previous</button>
+                <button class="btn-quiz next" id="nextBtn" disabled>Next</button>
+            </div>
+        </div>
+
+        <!-- Quiz Result -->
+        <div class="quiz-result" id="quizResult">
+            <div class="result-icon">🎨</div>
+            <h3>Your Style: <span id="resultStyle">Modern Minimalist</span></h3>
+            <p id="resultDescription">Based on your answers, we recommend a clean, functional design with natural materials.</p>
+            
+            <div class="result-features">
+                <div class="result-feature">
+                    <div class="icon">🏠</div>
+                    <h5>Layout</h5>
+                    <p id="resultLayout">Open concept</p>
+                </div>
+                <div class="result-feature">
+                    <div class="icon">🎨</div>
+                    <h5>Colors</h5>
+                    <p id="resultColors">Neutral tones</p>
+                </div>
+                <div class="result-feature">
+                    <div class="icon">💡</div>
+                    <h5>Lighting</h5>
+                    <p id="resultLighting">Natural light</p>
+                </div>
+            </div>
+
+            <button class="btn-book" onclick="openModal()">Get Detailed Proposal</button>
+        </div>
+    </div>
+</section>
+        
         /* ===== SERVICES SECTION ===== */
         .services-section {
             padding: 80px 60px;
