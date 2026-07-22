@@ -2454,6 +2454,164 @@ input[type="range"]::-webkit-slider-thumb:hover {
                 modalOverlay.classList.remove('active');
             }, 3000);
         });
+
+// ===== QUIZ LOGIC =====
+const quizData = [
+    {
+        question: "What's your preferred design style?",
+        subtitle: "Choose the style that resonates with you",
+        options: [
+            { icon: "🏛️", title: "Classic", description: "Timeless elegance" },
+            { icon: "✨", title: "Modern", description: "Clean and contemporary" },
+            { icon: "🌿", title: "Minimalist", description: "Simple and functional" },
+            { icon: "🏡", title: "Rustic", description: "Warm and natural" }
+        ]
+    },
+    {
+        question: "How many rooms do you need?",
+        subtitle: "Select the number that fits your lifestyle",
+        options: [
+            { icon: "🛏️", title: "1-2 Rooms", description: "Compact living" },
+            { icon: "🏠", title: "3-4 Rooms", description: "Family home" },
+            { icon: "🏘️", title: "5-6 Rooms", description: "Spacious living" },
+            { icon: "🏰", title: "7+ Rooms", description: "Luxury estate" }
+        ]
+    },
+    {
+        question: "What's your budget range?",
+        subtitle: "Help us find the best solution for you",
+        options: [
+            { icon: "💰", title: "$50K - $100K", description: "Standard quality" },
+            { icon: "💎", title: "$100K - $200K", description: "Premium quality" },
+            { icon: "👑", title: "$200K - $500K", description: "Luxury finishes" },
+            { icon: "🚀", title: "$500K+", description: "Ultra luxury" }
+        ]
+    },
+    {
+        question: "Where do you prefer to live?",
+        subtitle: "Choose your ideal location",
+        options: [
+            { icon: "🌆", title: "City Center", description: "Urban lifestyle" },
+            { icon: "🌳", title: "Suburbs", description: "Quiet neighborhood" },
+            { icon: "🏔️", title: "Countryside", description: "Nature surroundings" },
+            { icon: "🌊", title: "Coastal", description: "Near the sea" }
+        ]
+    },
+    {
+        question: "What's most important to you?",
+        subtitle: "Select your top priority",
+        options: [
+            { icon: "☀️", title: "Natural Light", description: "Bright and airy" },
+            { icon: "🔒", title: "Security", description: "Safe and private" },
+            { icon: "🌱", title: "Sustainability", description: "Eco-friendly" },
+            { icon: "🎭", title: "Entertainment", description: "Social spaces" }
+        ]
+    }
+];
+
+let currentQuestion = 0;
+let answers = [];
+
+const questionTitle = document.getElementById('questionTitle');
+const questionSubtitle = document.getElementById('questionSubtitle');
+const quizOptions = document.getElementById('quizOptions');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const progressFill = document.getElementById('progressFill');
+const progressText = document.getElementById('progressText');
+const quizContent = document.getElementById('quizContent');
+const quizResult = document.getElementById('quizResult');
+
+function loadQuestion() {
+    const question = quizData[currentQuestion];
+    questionTitle.innerHTML = question.question.replace(/(\w+)\?/, '<span>$1</span>?');
+    questionSubtitle.textContent = question.subtitle;
+    
+    quizOptions.innerHTML = '';
+    question.options.forEach((option, index) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'quiz-option';
+        if (answers[currentQuestion] === index) {
+            optionDiv.classList.add('selected');
+        }
+        optionDiv.innerHTML = `
+            <div class="icon">${option.icon}</div>
+            <h4>${option.title}</h4>
+            <p>${option.description}</p>
+        `;
+        optionDiv.addEventListener('click', () => selectOption(index));
+        quizOptions.appendChild(optionDiv);
+    });
+    
+    updateProgress();
+    updateButtons();
+}
+
+function selectOption(index) {
+    answers[currentQuestion] = index;
+    const options = document.querySelectorAll('.quiz-option');
+    options.forEach(opt => opt.classList.remove('selected'));
+    options[index].classList.add('selected');
+    updateButtons();
+}
+
+function updateProgress() {
+    const progress = ((currentQuestion + 1) / quizData.length) * 100;
+    progressFill.style.width = progress + '%';
+    progressText.textContent = `Question ${currentQuestion + 1} of ${quizData.length}`;
+}
+
+function updateButtons() {
+    prevBtn.disabled = currentQuestion === 0;
+    nextBtn.disabled = answers[currentQuestion] === undefined;
+    nextBtn.textContent = currentQuestion === quizData.length - 1 ? 'See Results' : 'Next';
+}
+
+prevBtn.addEventListener('click', () => {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion();
+    }
+});
+
+nextBtn.addEventListener('click', () => {
+    if (answers[currentQuestion] !== undefined) {
+        if (currentQuestion < quizData.length - 1) {
+            currentQuestion++;
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }
+});
+
+function showResults() {
+    quizContent.style.display = 'none';
+    quizResult.classList.add('active');
+    
+    const styles = ['Classic Elegance', 'Modern Minimalist', 'Contemporary Luxury', 'Rustic Charm'];
+    const descriptions = [
+        'Timeless design with rich materials and traditional elements.',
+        'Clean lines, functional spaces, and modern aesthetics.',
+        'Cutting-edge design with premium finishes and smart technology.',
+        'Natural materials, warm tones, and cozy atmosphere.'
+    ];
+    const layouts = ['Traditional layout', 'Open concept', 'Smart spaces', 'Cozy rooms'];
+    const colors = ['Rich tones', 'Neutral palette', 'Bold accents', 'Earth tones'];
+    const lighting = ['Warm lighting', 'Natural light', 'Smart lighting', 'Ambient glow'];
+    
+    const styleIndex = answers[0] || 0;
+    
+    document.getElementById('resultStyle').textContent = styles[styleIndex];
+    document.getElementById('resultDescription').textContent = descriptions[styleIndex];
+    document.getElementById('resultLayout').textContent = layouts[styleIndex];
+    document.getElementById('resultColors').textContent = colors[styleIndex];
+    document.getElementById('resultLighting').textContent = lighting[styleIndex];
+}
+
+// Initialize quiz
+loadQuestion();
+        
     </script>
 
 </body>
