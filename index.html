@@ -1032,15 +1032,21 @@
         }
 
         .room-visual {
-            width: 100%;
-            height: 300px;
-            background: #1a1f2e;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
+    width: 100%;
+    height: 300px;
+    background: #1a1f2e;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    position: relative;
+    overflow: hidden;
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.4s ease;
+}
         }
 
         .room-info {
@@ -1482,7 +1488,10 @@
                 </div>
 
                 <div class="builder-preview">
-                    <div class="room-visual" id="roomVisual">🛋️</div>
+                    <div class="room-visual" id="roomVisual">
+    <img id="roomImage" src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800" alt="Room Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">
+    <div id="colorOverlay" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(212, 197, 176, 0.3); border-radius: 8px;"></div>
+</div>
                     <div class="room-info">
                         <h4 id="roomTitle">Modern Living Room</h4>
                         <p id="roomDescription">5m × 4m • Neutral Colors</p>
@@ -1786,32 +1795,71 @@
         const generateBtn = document.getElementById('generateBtn');
 
         let currentRoom = 'living';
-        let currentStyle = 'modern';
-        let currentColor = 'neutral';
+let currentStyle = 'modern';
+let currentColor = 'neutral';
 
-        const roomIcons = {
-            living: '️',
-            bedroom: '🛏️',
-            kitchen: '🍳',
-            bathroom: '🛁'
-        };
+const roomImage = document.getElementById('roomImage');
+const colorOverlay = document.getElementById('colorOverlay');
 
-        const roomNames = {
-            living: 'Living Room',
-            bedroom: 'Bedroom',
-            kitchen: 'Kitchen',
-            bathroom: 'Bathroom'
-        };
+builderTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        builderTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentRoom = tab.dataset.room;
+        updateRoomVisual();
+    });
+});
 
-        builderTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                builderTabs.forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                currentRoom = tab.dataset.room;
-                roomVisual.textContent = roomIcons[currentRoom];
-                updateRoomInfo();
-            });
-        });
+styleOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        styleOptions.forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+        currentStyle = option.dataset.style;
+        updateRoomInfo();
+    });
+});
+
+colorOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        colorOptions.forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+        currentColor = option.dataset.color;
+        updateRoomVisual();
+    });
+});
+
+roomLength.addEventListener('input', updateRoomInfo);
+roomWidth.addEventListener('input', updateRoomInfo);
+
+function updateRoomVisual() {
+    // Փոխել նկարը
+    roomImage.src = roomImages[currentRoom];
+    
+    // Փոխել գույնի overlay-ը
+    colorOverlay.style.background = colorOverlays[currentColor];
+    
+    // Animation
+    roomVisual.style.opacity = '0';
+    roomVisual.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+        roomVisual.style.opacity = '1';
+        roomVisual.style.transform = 'translateY(0)';
+    }, 100);
+    
+    updateRoomInfo();
+}
+
+function updateRoomInfo() {
+    const length = roomLength.value || 5;
+    const width = roomWidth.value || 4;
+    roomTitle.textContent = `${currentStyle.charAt(0).toUpperCase() + currentStyle.slice(1)} ${roomNames[currentRoom]}`;
+    roomDescription.textContent = `${length}m × ${width}m • ${currentColor.charAt(0).toUpperCase() + currentColor.slice(1)} Colors`;
+}
+
+generateBtn.addEventListener('click', () => {
+    updateRoomVisual();
+});
 
         styleOptions.forEach(option => {
             option.addEventListener('click', () => {
