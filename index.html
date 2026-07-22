@@ -1119,61 +1119,7 @@
             }
         }
 
-        @media (max-width: 768px) {
-            nav {
-                padding: 20px 30px;
-            }
-            .nav-links {
-                gap: 20px;
-            }
-            .hero {
-                padding: 0 30px;
-            }
-            .hero h1 {
-                font-size: 34px;
-            }
-            .hero-image {
-                display: none;
-            }
-            .features {
-                grid-template-columns: 1fr;
-                padding: 60px 30px;
-            }
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-            .projects {
-                padding: 60px 30px;
-            }
-            .services-section {
-                padding: 60px 30px;
-            }
-            .quiz-options {
-                grid-template-columns: 1fr;
-            }
-            .result-features {
-                grid-template-columns: 1fr;
-            }
-            .quiz-container {
-                padding: 30px;
-            }
-            .quiz-buttons {
-                flex-direction: column;
-            }
-            .builder-tabs {
-                flex-wrap: wrap;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-links {
-                display: none;
-            }
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            @keyframes slideUp {
+        @keyframes slideUp {
     from {
         opacity: 0;
         transform: translateY(20px);
@@ -1188,6 +1134,72 @@
     opacity: 0;
     transform: translateY(20px);
     animation: slideUp 0.4s ease forwards;
+}
+
+@media (max-width: 768px) {
+    nav {
+        padding: 20px 30px;
+    }
+    .nav-links {
+        gap: 20px;
+    }
+    .hero {
+        padding: 0 30px;
+    }
+    .hero h1 {
+        font-size: 34px;
+    }
+    .hero-image {
+        display: none;
+    }
+    .features {
+        grid-template-columns: 1fr;
+        padding: 60px 30px;
+    }
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    .projects {
+        padding: 60px 30px;
+    }
+    .services-section {
+        padding: 60px 30px;
+    }
+    .quiz-options {
+        grid-template-columns: 1fr;
+    }
+    .result-features {
+        grid-template-columns: 1fr;
+    }
+    .quiz-container {
+        padding: 30px;
+    }
+    .quiz-buttons {
+        flex-direction: column;
+    }
+    .builder-tabs {
+        flex-wrap: wrap;
+    }
+    .builder-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .builder-preview {
+        order: -1;
+        min-height: 300px;
+    }
+    .room-visual {
+        height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links {
+        display: none;
+    }
+    .hero-buttons {
+        flex-direction: column;
+    }
 }
         }
     </style>
