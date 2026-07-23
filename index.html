@@ -1180,16 +1180,54 @@
     .builder-tabs {
         flex-wrap: wrap;
     }
+  @media (max-width: 768px) {
+    /* ... (մնացած կոդը թող նույնը մնա) ... */
+    
     .builder-content {
         grid-template-columns: 1fr;
         gap: 30px;
     }
+    
     .builder-preview {
         order: -1;
         min-height: 300px;
     }
+    
     .room-visual {
         height: 250px;
+    }
+    
+    /* Ավելացրու սա */
+    .style-options,
+    .color-options {
+        grid-template-columns: 1fr; /* եկ սյունակ mobile-ում */
+        gap: 10px;
+    }
+    
+    .dimension-inputs {
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+    
+    .builder-controls {
+        gap: 20px;
+    }
+    
+    .control-group h4 {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+    
+    .style-option,
+    .color-option {
+        padding: 15px;
+        font-size: 14px;
+    }
+    
+    .btn-generate {
+        width: 100%;
+        padding: 16px;
+        font-size: 16px;
     }
 }
 
